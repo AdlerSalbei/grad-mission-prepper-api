@@ -1,5 +1,6 @@
 const http = require('http');
 const fs = require('fs-extra');
+const fse = require('fs');
 /*
 http.createServer(function (req, res) {
   fs.readFile('description.ext', function(err, data) {
@@ -9,25 +10,61 @@ http.createServer(function (req, res) {
   });
 }).listen(8080);
 */
+function createAndCopy (directory) {
+  try {
+    fs.ensureDirSync(directory);
 
+    try {
+      fs.copySync('missionFile/template/CO_Template.VR', 'missionFile/CO_Template.VR');
+    } catch (err) {
+      console.error(err);
+    };
+  } catch (err) {
+    console.error(err)
+  };
+}
+createAndCopy('missionFile/CO_Template.VR')
 
 
 function changeDescription (values) {
-  var data = fs.readFileSync("missionFile/co_template.vr/description.ext", 'utf-8');
 
+  let data = "";
+
+  try {
+    data = fs.readFileSync("missionFile/CO_Template.VR/description.ext", 'utf-8');
+  } catch (err) {
+    console.error(err);
+  };
+  
   values.forEach(function(element){
-    var oldElement = element[0];
-    var newElement = element[1];
-    var index = data.indexOf(oldElement);
+    let oldElement = element[0];
+    let newElement = element[1];
+    let index = data.indexOf(oldElement);
 
     if (index !== -1) {
       data = data.replace(oldElement, newElement);
     } else {
-      data = data + newElement;
+      data = data + "\n" + newElement;
     };
   });
 
-  fs.writeFileSync("missionFile/co_template.vr/description.ext", data, 'utf-8');
+  try {
+    fs.writeFileSync("missionFile/CO_Template.VR/description.ext", data, 'utf-8');
+  } catch (err) {
+    console.error(err);
+  };
 };
 
-changeDescription([["missionName = '';", "missionName = 'testR';"], ["name = '';", "name = 'Salbei';"]]);
+changeDescription([["missionName = '';", "missionName = 'testR';"], ["name = '';", "name = 'Salbei';"], ["respawn = 3;", "respawn = 4;"]]);
+
+
+function removeFolder (src) {
+  try {
+    fs.removeSync(src)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+//removeFolder('missionFile/CO_Template.VR')
+
