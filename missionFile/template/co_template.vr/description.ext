@@ -18,14 +18,27 @@ reviveMode = 0;
 
 enableDebugConsole = 1;
 
-#include "USER\missionInfo.hpp"
+//MISSION INFO ===================================================================
+author = "Salbei für Gruppe Adler";                                             // Missionsersteller
+onLoadName = "COOP TEMPLATE";                                                   // Name der Mission
+onLoadMission = "";                                                             // Beschreibung der Mission (wird im Ladebildschirm unterhalb des Ladebildes angezeigt)
+loadScreen = "data\loadpic.paa";                                                // Ladebild
+overviewPicture = "";                                                           // Bild, das in der Missionsauswahl angezeigt wird
+overviewText = "";                                                              // Text, der in der Missionsauswahl angezeigt wird
+
+
 #include "USER\loadouts.hpp"
-#include "USER\garbageCollector.hpp"
 #include "cfgEventHandlers.hpp"
 #include "cfgIslands.hpp"
 
+//CUSTOM MISSION SETTINGS ==========================================================
 class missionSettings {
-	#include "USER\missionSettings.hpp"
+	timeMultiplier = 1;                                                             // Geschwindigkeitsfaktor für ingame Zeit - Wert von 1 bedeutet 1h im Spiel == 1h in echt
+    ambientLife = 0;                                                                // zufällig generierte Hasen, Schlangen, Schmetterlinge, etc. (0/1) - aus Performancegründen standardmäßig aus
+    ambientSound = 1;                                                               // zufällig generierte Umgebungsgeräusche (0/1)
+    sideChannel = 0;                                                                // Sidechannel aktiv (0/1) - standardmäßig aus, damit Spieler Marker immer zeussichtbar in Global setzen können
+    artilleryComputer = 0;                                                          // Artilleriecomputer (0/1) - wenn ausgeschaltet, benutzt KI Mörser nicht mehr für indirekten Beschuss
+    showLogo = 0;                                                                   // Adlerlogo mit Missionsnamen anzeigen (0/1) - alternativ kann hier eine Wartebedingung festgelegt werden (siehe Wiki)
 
 	class groupsettings {
 		#include "USER\groupsettings.hpp"
@@ -47,8 +60,6 @@ class CfgFunctions
     #include "functions\groupsettings\cfgFunctions.hpp"
 	#include "functions\missionSetup\cfgFunctions.hpp"
     #include "functions\radiosettings\cfgFunctions.hpp"
-
-    #include "node_modules\grad-loadout\cfgFunctions.hpp"
 
 	#include "USER\userFunctions.hpp"
 };
@@ -92,15 +103,16 @@ class CfgSounds {
 	#include "USER\userSounds.hpp"
 };
 
+//CORPS MANAGER ================================================================
+corpseManagerMode = 1;                                                          // Leichen aufräumen (0/1)
+corpseLimit = 30;                                                               // Schwellenwert an Leichen, ab dem die corpseRemovalMinTime benutzt wird
+corpseRemovalMinTime = 300;                                                     // Mindestdauer bevor eine Leiche gelöscht wird
+corpseRemovalMaxTime = 500;                                                     // Maximaldauer nach der eine Leiche gelöscht wird
 
-//GRAD LOADOUT =================================================================
-class Loadouts {
-    baseDelay = 1;
-    handleRadios = 1;
-    resetLoadout = 0;
+wreckManagerMode = 1;                                                           // Wracks aufräumen (0/1)
+wreckLimit = 20;                                                                // Schwellenwert an Wracks, ab dem die wreckRemovalMinTime benutzt wird
+wreckRemovalMinTime = 500;                                                      // Mindestdauer bevor ein Wrack gelöscht wird
+wreckRemovalMaxTime = 1200;                                                     // Maximaldauer nach der ein Wrack gelöscht wird
 
-    class Faction {
-        #include "node_modules\grad-factions\loadouts.hpp"
-        #include "USER\userLoadouts.hpp"
-    };
-};
+minPlayerDistance = 150;                                                         // Mindestabstand zu allen Spielern, ab der Leichen oder Wracks gelöscht werden dürfen
+

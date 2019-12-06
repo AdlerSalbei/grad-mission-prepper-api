@@ -4,15 +4,3 @@ if (didJIP) then {
 
 ["InitializePlayer", [player,true]] call BIS_fnc_dynamicGroups;
 grad_template_ratingEH = player addEventHandler ["HandleRating",{0}];
-
-["CBA_loadingScreenDone", {
-    if (!(didJIP) || {(didJIP && !(isNil "GRAD_USER_introOver"))}) then {
-        [{time > (_this + 3)},{
-            if (isNull (getAssignedCuratorLogic ace_player)) then {
-                STHud_UIMode = 0;
-                diwako_dui_main_toggled_off = true;
-                [] call GRAD_USER_fnc_intro;
-            };
-        },time] call CBA_fnc_waitUntilAndExecute;
-    };
-}] call CBA_fnc_addEventHandler;
