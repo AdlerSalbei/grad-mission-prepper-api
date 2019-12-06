@@ -10,9 +10,6 @@ http.createServer(function (req, res) {
 }).listen(8080);
 */
 
-let descriptionChanges = [];
-let missionName = "missionFile/CO_Template.VR";
-
 function createAndCopy (oldDirectory, newDirectory) {
   try {
     fs.ensureDirSync(newDirectory);
@@ -49,14 +46,15 @@ function writeDescription (missionName, newData) {
 
 function changeDescription (values, data) {
   values.forEach(function(element){
+    let oldElement = element[0];
+    let newElement = element[1];
+    let className = element[2];
+    
     switch (element.length) {
       case 1: 
-        let newElement = element[0];
-        data = data + "\n" + newElement;
+        data = data + "\n" + oldElement;
         break;
-      case 2: 
-        let oldElement = element[0];
-        let newElement = element[1];
+      case 2:  
         let index = data.indexOf(oldElement);
     
         if (index !== -1 && oldElement !== "") {
@@ -66,14 +64,11 @@ function changeDescription (values, data) {
         };
         break;
       case 3: 
-        let newElement = element[1];
-        let className = element[2];
-        
-        let indexClass = data.indexOf(className) + className.length;
+        let indexClass = data.indexOf(className);
         let indexBraket = data.indexOf("}", indexClass);
 
-        let firstString = data.substr(0, indexClass);
-        let lastString = data.substr(indexClass, data.length);
+        let firstString = data.substr(0, indexBraket -1);
+        let lastString = data.substr(indexBraket, data.length);
 
         data = firstString + "\n" + newElement + "\n" + lastString;
 
@@ -87,14 +82,14 @@ function useGradLoadout (missionName, descriptionChanges) {
   createAndCopy('missionFile/template/modules/grad-loadout', missionName + '/node_modules/grad-loadout');
 
   descriptionChanges.push(
-    [""],
+    ["//GRAD LOADOUT ================================================================"],
     ["class Loadouts {"],
     ["    baseDelay = 10; // minimum time to wait after connect before applying loadout"],
     ["    perPlayerDelay = 1; // added random delay based on number of players"],
     ["    handleRadios = 0; // if radios should be handled. defaults to 0"],
     ["    resetLoadout = 1; // start with empty loadouts instead of modifying existing loadout"],  
     ["};"],
-    ["", "    #include <node_modules\grad-loadout\CfgFunctions.hpp>", "CfgFunctions"]
+    ["", "    #include <node_modules\\grad-loadout\\CfgFunctions.hpp>", "CfgFunctions"]
 
   );
 
@@ -109,11 +104,19 @@ function removeFolder (missionName) {
   }
 }
 
+let descriptionChanges = [];
+let missionName = "missionFile/CO_Template.VR";
+let data = "";
+
 createAndCopy('missionFile/template/CO_Template.VR', missionName);
-let data = readDescription(missionName);
+
+data = readDescription(missionName);
+
 descriptionChanges = useGradLoadout(missionName, descriptionChanges);
+descriptionChanges = useGradCivs(missionName, descriptionChanges);
+
 data = changeDescription(descriptionChanges, data);
 
-writeDescription (missionName, data)
+writeDescription (missionName, data);
 //removeFolder(missionName)
 
