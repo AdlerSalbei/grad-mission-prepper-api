@@ -96,6 +96,52 @@ function useGradLoadout (missionName, descriptionChanges) {
   return descriptionChanges
 };
 
+function useGradCivs (missionName, descriptionChanges) {
+  createAndCopy('missionFile/template/modules/grad-loadout', missionName + '/node_modules/grad-loadout');
+  createAndCopy('missionFile/template/modules/grad-loadout', missionName + '/node_modules/grad-loadout');
+  createAndCopy('missionFile/template/modules/grad-loadout', missionName + '/node_modules/grad-loadout');
+
+  descriptionChanges.push(   
+    ["//GRAD CIVS ================================================================"],
+    ["class CfgGradCivs {"],
+    ["    autoInit = 1;"],
+    ["    maxCivsOnFoot = 20;"],
+    ["    maxCivsResidents = 30;"],
+    ["    maxCivsInVehicles = 10;"],  
+    ["    spawnDistancesOnFoot[] = {1000,4500};"],  
+    ["    spawnDistancesInVehicles[] = {1000,4500};"],  
+    ["    debugCivState = 0;"],  
+    ["    debugFps = 0;"],  
+    ["    minCivUpdateTime = 3;"],  
+    ["    minFps = 35;"],  
+    ["    automaticVehicleGroupSize = 1;"],  
+    ["    exitOn = '';"],  
+    ["    onSpawn = '';"],  
+    ["    onHeldUp = ''; "],  
+    ["    backpackProbability = 0.5;"],  
+    [""],  
+    ["    clothes[] = {"],  
+    ["    };"], 
+    [""], 
+    ["    headgear[] = {"], 
+    ["    };"],
+    [""], 
+    ["    faces[] = {"], 
+    ["    };"],
+    [""],  
+    ["    goggles[] = {"], 
+    ["    };"],
+    [""], 
+    ["    backpacks[] = {"], 
+    ["    };"],
+    [""], 
+    ["};"],
+    ["", "    #include <modules\grad-civs\cfgFunctions.hpp>", "CfgFunctions"]
+  );
+
+  return descriptionChanges
+};
+
 function removeFolder (missionName) {
   try {
     fs.removeSync(missionName)
