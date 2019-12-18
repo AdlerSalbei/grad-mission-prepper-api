@@ -1,2 +1,3 @@
 .vscode
 missionFile/CO_Template.VR/**
+node_modules/**

@@ -1,13 +1,18 @@
 const http = require('http');
 const fs = require('fs-extra');
 /*
-http.createServer(function (req, res) {
-  fs.readFile('description.ext', function(err, data) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write(data);
-    res.end();
-  });
-}).listen(8080);
+const hostname = '127.0.0.1';
+const port = 3000;
+
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello World\n');
+});
+
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
 */
 
 function createAndCopyDir (oldDirectory, newDirectory) {
@@ -72,7 +77,7 @@ function changeData (changes, data) {
           data = data + "\n" + newElement;
         };
         break;
-      case 3: 
+      case 3: {
         let indexClass = data.indexOf(className);
         let indexBraket = data.indexOf("}", indexClass);
 
@@ -80,9 +85,9 @@ function changeData (changes, data) {
         let lastString = data.substr(indexBraket, data.length);
         
         data = firstString + "\n" + newElement + "\n" + lastString;
-
+        }
         break;
-      case 4: 
+      case 4: {
         let indexClass = data.indexOf(className);
         let indexBraket = data.indexOf(putBefore, indexClass);
 
@@ -90,7 +95,7 @@ function changeData (changes, data) {
         let lastString = data.substr(indexBraket, data.length);
         
         data = firstString + "\n" + newElement + "\n" + lastString;
-
+        }
         break;
     };
   });
@@ -98,10 +103,9 @@ function changeData (changes, data) {
 };
 
 function changeFile (fileName, newData) {
-  console.log(newData);
   let data = readDataFromFile(fileName);
   data = changeData(newData, data);
-  console.log(data);
+
   writeDataToFile(fileName, data);
 };
 
@@ -116,6 +120,9 @@ function useGradLoadout (missionName, descriptionChanges, userChanges) {
     ["    perPlayerDelay = " + userChanges[1] + "; // added random delay based on number of players"],
     ["    handleRadios = " + userChanges[2] + "; // if radios should be handled. defaults to 0"],
     ["    resetLoadout = " + userChanges[3] + "; // start with empty loadouts instead of modifying existing loadout"],  
+    [" "],
+    ["    class Faction {"],
+    ["    };"]
     ["};"],
     ["", "    #include <node_modules\\grad-loadout\\CfgFunctions.hpp>", "CfgFunctions"],
     [""]
@@ -129,9 +136,8 @@ function useGradCivs (missionName, descriptionChanges, userChanges) {
   createAndCopyFile('missionFile/template/modules/grad-civs-additionalFiles/fn_initCivs.sqf', missionName + '/functions/missionSetup/fn_initCivs.sqf');
   createAndCopyFile('missionFile/template/modules/grad-civs-additionalFiles/fn_initCivsEquip.sqf', missionName + '/functions/missionSetup/fn_initCivsEquip.sqf');
 
-  changeFile(missionName + "/functions/missionSetup/cfgFunctions.hpp", [["", "        class initCivs {};", "class intro {};"], ["", "        class initCivsEquip {preInit = 1;};", "class intro {}"]]);
-  
-  changeFile(missionName + "/functions/missionSetup/fn_initMission.sqf", ["", "[] call grad_missionSetup_fnc_initCivs;", "[] call grad_missionSetup_fnc_createDiaryRecords;", "["]);
+  changeFile(missionName + "/functions/missionSetup/cfgFunctions.hpp", [["", "        class initCivs {};", "class intro {};", "class"], ["", "        class initCivsEquip {preInit = 1;};", "class intro {}", "class"]]);
+  changeFile(missionName + "/functions/missionSetup/fn_initMission.sqf", [["", "[] call grad_missionSetup_fnc_initCivs;", ";", "["]]);
 
   descriptionChanges.push(   
     ["//GRAD CIVS ================================================================"],
@@ -167,7 +173,17 @@ function useGradCivs (missionName, descriptionChanges, userChanges) {
     ["    backpacks[] = {"], 
     ["    };"], 
     ["};"],
-    ["", "    #include <modules\\grad-civs\\cfgFunctions.hpp>", "CfgFunctions"]
+    ["", "    #include <node_modules\\grad-civs\\cfgFunctions.hpp>", "CfgFunctions"]
+  );
+
+  return descriptionChanges
+};
+
+function useGradFactions (missionName, descriptionChanges) {
+  createAndCopyDir('missionFile/template/modules/grad-factions', missionName + '/node_modules/grad-factions');
+
+  descriptionChanges.push(
+  ["", "        #include <node_modules\grad-factions\loadouts.hpp>", "class Faction {"]
   );
 
   return descriptionChanges
@@ -192,6 +208,7 @@ createAndCopyDir('missionFile/template/CO_Template.VR', missionName);
 data = readDataFromFile(missionName + "/description.ext");
 
 descriptionChanges = useGradLoadout(missionName, descriptionChanges, gradLoadoutChanges);
+descriptionChanges = useGradFactions(missionName, descriptionChanges);
 descriptionChanges = useGradCivs(missionName, descriptionChanges, gradCivsChanges);
 
 data = changeData(descriptionChanges, data);
