@@ -1,35 +1,22 @@
 const http = require('http');
 const fs = require('fs-extra');
-/*
-const hostname = '127.0.0.1';
-const port = 3000;
-
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World\n');
-});
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
-*/
 
 let descriptionChanges = [];
-let missionName = "missionFile/CO_Template.VR";
+let missionName = "CO_Template.VR";
+let missionPath = "missionFile/" + missionName;
 let data = "";
 let gradLoadoutChanges = ["10", "1", "0", "1"];
 let gradCivsChanges = ["1", "20", "30", "10", "{1000,4500}", "{1000,4500}", "0", "0", "3", "35", "1", "''", "''", "0.5"];
 
-createAndCopyDir('missionFile/template/CO_Template.VR', missionName);
+createAndCopyDir('missionFile/template/CO_Template.VR', missionPath);
 
-data = readDataFromFile(missionName + "/description.ext");
+data = readDataFromFile(missionPath + "/description.ext");
 
-descriptionChanges = useGradLoadout(missionName, descriptionChanges, gradLoadoutChanges);
-descriptionChanges = useGradFactions(missionName, descriptionChanges);
-descriptionChanges = useGradCivs(missionName, descriptionChanges, gradCivsChanges);
+descriptionChanges = useGradLoadout(missionPath, descriptionChanges, gradLoadoutChanges);
+descriptionChanges = useGradFactions(missionPath, descriptionChanges);
+descriptionChanges = useGradCivs(missionPath, descriptionChanges, gradCivsChanges);
 
 data = changeData(descriptionChanges, data);
 
-writeDataToFile(missionName + "/description.ext", data);
-//removeFolder(missionName)
+writeDataToFile(missionPath + "/description.ext", data);
+//removeFolder(missionPath)
