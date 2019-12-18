@@ -110,7 +110,7 @@ function changeFile (fileName, newData) {
 };
 
 function useGradLoadout (missionName, descriptionChanges, userChanges) {
-  createAndCopyDir('missionFile/template/modules/grad-loadout', missionName + '/node_modules/grad-loadout');
+  createAndCopyDir('missionFile/template/node_modules/grad-loadout', missionName + '/node_modules/grad-loadout');
 
   descriptionChanges.push(
     [""],
@@ -132,9 +132,9 @@ function useGradLoadout (missionName, descriptionChanges, userChanges) {
 };
 
 function useGradCivs (missionName, descriptionChanges, userChanges) {
-  createAndCopyDir('missionFile/template/modules/grad-civs', missionName + '/node_modules/grad-civs');
-  createAndCopyFile('missionFile/template/modules/grad-civs-additionalFiles/fn_initCivs.sqf', missionName + '/functions/missionSetup/fn_initCivs.sqf');
-  createAndCopyFile('missionFile/template/modules/grad-civs-additionalFiles/fn_initCivsEquip.sqf', missionName + '/functions/missionSetup/fn_initCivsEquip.sqf');
+  createAndCopyDir('missionFile/template/node_modules/grad-civs', missionName + '/node_modules/grad-civs');
+  createAndCopyFile('missionFile/template/node_modules/grad-civs-additionalFiles/fn_initCivs.sqf', missionName + '/functions/missionSetup/fn_initCivs.sqf');
+  createAndCopyFile('missionFile/template/node_modules/grad-civs-additionalFiles/fn_initCivsEquip.sqf', missionName + '/functions/missionSetup/fn_initCivsEquip.sqf');
 
   changeFile(missionName + "/functions/missionSetup/cfgFunctions.hpp", [["", "        class initCivs {};", "class intro {};", "class"], ["", "        class initCivsEquip {preInit = 1;};", "class intro {}", "class"]]);
   changeFile(missionName + "/functions/missionSetup/fn_initMission.sqf", [["", "[] call grad_missionSetup_fnc_initCivs;", ";", "["]]);
@@ -180,7 +180,7 @@ function useGradCivs (missionName, descriptionChanges, userChanges) {
 };
 
 function useGradFactions (missionName, descriptionChanges) {
-  createAndCopyDir('missionFile/template/modules/grad-factions', missionName + '/node_modules/grad-factions');
+  createAndCopyDir('missionFile/template/node_modules/grad-factions', missionName + '/node_modules/grad-factions');
 
   descriptionChanges.push(
   ["", "        #include <node_modules\grad-factions\loadouts.hpp>", "class Faction {"]
