@@ -1,24 +1,36 @@
-const express = require('express');
-const bodyParser = require('body-parser');
 import * as express from 'express';
+import * as bodyParser from 'body-parser';
+import * as morgan from 'morgan';
+import * as cors from 'cors';
 
-// const config = require('./config/config.js');
+import PrepperRouter from './routes/prepper';
 
 const app = express();
+
+app.use(cors({
+    credentials: true,
+    origin: [
+        new RegExp('gruppe-adler\.de$', 'i'),
+        new RegExp('localhost:[0-9]+$', 'i'),
+        new RegExp('127.0.0.1:[0-9]+$', 'i'),
+        new RegExp('127.0.0.1$', 'i'),
+        new RegExp('localhost$', 'i')
+    ]
+}));
+
+
+// body parser
 app.use(bodyParser.json());
-app.set('json spaces', 4);
 
-// set Access-Control-Allow Headers
-app.all('/*', (req, res, next) => {
-    res.header('Access-Control-Allow-Origin', config['Access-Allow-Origin']);
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.header('Access-Control-Allow-Methods', 'GET, HEAD, PUT, POST, DELETE, CONNECT, OPTIONS, TRACE, PATCH');
-    next();
+// logger
+app.use(morgan('short'));
+
+const {
+    PORT = 3000
+} = process.env;
+
+app.use('/', PrepperRouter);
+
+app.listen(PORT, () => {
+    console.log(`server started at http://localhost:${PORT}`);
 });
-
-// require('./src/routes/prepper.js')(app);
-
-// app.listen(config.port, () => console.log(`
-//     App listening on port ${config.port}
-//     Full URI: https://localhost:${config.port}/
-// `));

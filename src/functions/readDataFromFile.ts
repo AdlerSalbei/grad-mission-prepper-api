@@ -1,4 +1,6 @@
-function readDataFromFile (fileName) {
+import fs from 'fs-extra';
+
+export default function readDataFromFile (fileName: string) {
     let data = "";
   
     try {

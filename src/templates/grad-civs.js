@@ -1,4 +1,4 @@
-function useGradCivs (missionName, descriptionChanges, userChanges) {
+export default function useGradCivs (missionName, descriptionChanges, userChanges) {
     createAndCopyDir('missionFile/template/node_modules/grad-civs', missionName + '/node_modules/grad-civs');
     createAndCopyFile('missionFile/template/node_modules/grad-additionalFiles/fn_initCivs.sqf', missionName + '/functions/missionSetup/fn_initCivs.sqf');
     createAndCopyFile('missionFile/template/node_modules/grad-additionalFiles/fn_initCivsEquip.sqf', missionName + '/functions/missionSetup/fn_initCivsEquip.sqf');

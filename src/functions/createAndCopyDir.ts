@@ -1,4 +1,7 @@
-function createAndCopyDir (oldDirectory, newDirectory) {
+import fs from 'fs-extra';
+
+export default function createAndCopyDir (oldDirectory: string, newDirectory: string) {
+
     try {
         fs.ensureDirSync(newDirectory);
         try {

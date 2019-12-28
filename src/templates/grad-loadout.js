@@ -1,4 +1,4 @@
-function useGradLoadout (missionName, descriptionChanges, userChanges) {
+export default function useGradLoadout (missionName, descriptionChanges, userChanges) {
     createAndCopyDir('missionFile/template/node_modules/grad-loadout', missionName + '/node_modules/grad-loadout');
   
     descriptionChanges.push(
