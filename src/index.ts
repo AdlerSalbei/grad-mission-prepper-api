@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const config = require('./config/config.js');
+import * as express from 'express';
+
+// const config = require('./config/config.js');
 
 const app = express();
 app.use(bodyParser.json());
@@ -14,9 +16,9 @@ app.all('/*', (req, res, next) => {
     next();
 });
 
-require('./src/routes/prepper.js')(app);
+// require('./src/routes/prepper.js')(app);
 
-app.listen(config.port, () => console.log(`
-    App listening on port ${config.port}
-    Full URI: https://localhost:${config.port}/
-`));
+// app.listen(config.port, () => console.log(`
+//     App listening on port ${config.port}
+//     Full URI: https://localhost:${config.port}/
+// `));
