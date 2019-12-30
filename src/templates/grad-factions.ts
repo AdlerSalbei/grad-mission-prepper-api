@@ -7,7 +7,7 @@ import createAndCopyDir from "../functions/createAndCopyDir";
 import createAndCopyFile from "../functions/createAndCopyFile";
 import removeFolder from "../functions/removeFolder";
 
-export default function useGradFactions (missionName: string, descriptionChanges: any[]) {
+export default function useGradFactions (missionName: string, descriptionChanges: string[][]) {
     createAndCopyDir('missionFile/template/node_modules/grad-factions', missionName + '/node_modules/grad-factions');
   
     descriptionChanges.push(

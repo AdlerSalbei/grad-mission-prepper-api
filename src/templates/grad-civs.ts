@@ -7,7 +7,7 @@ import createAndCopyDir from "../functions/createAndCopyDir";
 import createAndCopyFile from "../functions/createAndCopyFile";
 import removeFolder from "../functions/removeFolder";
 
-export default function useGradCivs (missionName: string, descriptionChanges: any[], userChanges: string[]) {
+export default function useGradCivs (missionName: string, descriptionChanges: string[][], userChanges: string[]) {
     createAndCopyDir('missionFile/template/node_modules/grad-civs', missionName + '/node_modules/grad-civs');
     createAndCopyFile('missionFile/template/node_modules/grad-additionalFiles/fn_initCivs.sqf', missionName + '/functions/missionSetup/fn_initCivs.sqf');
     createAndCopyFile('missionFile/template/node_modules/grad-additionalFiles/fn_initCivsEquip.sqf', missionName + '/functions/missionSetup/fn_initCivsEquip.sqf');

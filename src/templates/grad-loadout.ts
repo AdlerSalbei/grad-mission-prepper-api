@@ -7,7 +7,7 @@ import createAndCopyDir from "../functions/createAndCopyDir";
 import createAndCopyFile from "../functions/createAndCopyFile";
 import removeFolder from "../functions/removeFolder";
 
-export default function useGradLoadout (missionName: string, descriptionChanges: any[], userChanges: string[]) {
+export default function useGradLoadout (missionName: string, descriptionChanges: string[][], userChanges: string[]) {
     createAndCopyDir('missionFile/template/node_modules/grad-loadout', missionName + '/node_modules/grad-loadout');
   
     descriptionChanges.push(

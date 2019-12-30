@@ -1,6 +1,6 @@
-export default function changeData(changes: string[], data: string) {
+export default function changeData(changes: string[][], data: string) {
 
-    changes.forEach(function (element: string) {
+    changes.forEach(function (element: string[]) {
         let oldElement = element[0];
         let newElement = element[1];
         let className = element[2];
