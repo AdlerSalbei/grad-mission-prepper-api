@@ -1,4 +1,13 @@
-export default function useGradLoadout (missionName, descriptionChanges, userChanges) {
+//Import Functions
+import writeDataToFile from "../functions/writeDataToFile";
+import changeData from "../functions/changeData";
+import changeFile from "../functions/changeFile";
+import readDataFromFile from "../functions/readDataFromFile";
+import createAndCopyDir from "../functions/createAndCopyDir";
+import createAndCopyFile from "../functions/createAndCopyFile";
+import removeFolder from "../functions/removeFolder";
+
+export default function useGradLoadout (missionName: string, descriptionChanges: any[], userChanges: string[]) {
     createAndCopyDir('missionFile/template/node_modules/grad-loadout', missionName + '/node_modules/grad-loadout');
   
     descriptionChanges.push(
@@ -11,7 +20,7 @@ export default function useGradLoadout (missionName, descriptionChanges, userCha
       ["    resetLoadout = " + userChanges[3] + "; // start with empty loadouts instead of modifying existing loadout"],  
       [" "],
       ["    class Faction {"],
-      ["    };"]
+      ["    };"],
       ["};"],
       ["", "    #include <node_modules\\grad-loadout\\CfgFunctions.hpp>", "CfgFunctions"],
       [""]

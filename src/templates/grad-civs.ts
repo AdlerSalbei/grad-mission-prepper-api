@@ -1,4 +1,13 @@
-export default function useGradCivs (missionName, descriptionChanges, userChanges) {
+//Import Functions
+import writeDataToFile from "../functions/writeDataToFile";
+import changeData from "../functions/changeData";
+import changeFile from "../functions/changeFile";
+import readDataFromFile from "../functions/readDataFromFile";
+import createAndCopyDir from "../functions/createAndCopyDir";
+import createAndCopyFile from "../functions/createAndCopyFile";
+import removeFolder from "../functions/removeFolder";
+
+export default function useGradCivs (missionName: string, descriptionChanges: any[], userChanges: string[]) {
     createAndCopyDir('missionFile/template/node_modules/grad-civs', missionName + '/node_modules/grad-civs');
     createAndCopyFile('missionFile/template/node_modules/grad-additionalFiles/fn_initCivs.sqf', missionName + '/functions/missionSetup/fn_initCivs.sqf');
     createAndCopyFile('missionFile/template/node_modules/grad-additionalFiles/fn_initCivsEquip.sqf', missionName + '/functions/missionSetup/fn_initCivsEquip.sqf');
