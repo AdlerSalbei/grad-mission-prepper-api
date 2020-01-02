@@ -1,4 +1,4 @@
-import fs from 'fs-extra';
+import * as fs from 'fs-extra';
 
 export default function createAndCopyDir (oldDirectory: string, newDirectory: string) {
 
@@ -12,4 +12,5 @@ export default function createAndCopyDir (oldDirectory: string, newDirectory: st
     } catch (err) {
         console.error(err)
     };
+
 };

@@ -1,4 +1,4 @@
-import fs from 'fs-extra';
+import * as fs from 'fs-extra';
 
 export default function createAndCopyFile (oldFile: string, newFile: string) {
     try {

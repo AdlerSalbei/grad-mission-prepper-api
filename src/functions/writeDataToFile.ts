@@ -1,4 +1,4 @@
-import fs from 'fs-extra';
+import * as fs from 'fs-extra';
 
 export default function writeDataToFile (missionName: string, newData: string) {
     try {

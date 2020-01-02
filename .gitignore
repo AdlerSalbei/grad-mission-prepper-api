@@ -1,4 +1,4 @@
 .vscode
-missionFile/CO_Template.VR/**
 node_modules/**
 missionFile/template/node_modules/**
+*.zip

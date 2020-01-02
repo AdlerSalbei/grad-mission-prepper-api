@@ -16,7 +16,7 @@ import useGradCivs from "./templates/grad-civs";
 //import useGradmakeFire from "./src/templates/grad-makeFire";
 //import useGradScoreboard from "./src/templates/grad-scoreboard";
 
-let descriptionChanges = [];
+let descriptionChanges:string[][] = [];
 let missionName = "CO_Template.VR";
 let missionPath = "missionFile/" + missionName;
 let data = "";
