@@ -21,7 +21,7 @@ import useGradCivs from "../templates/grad-civs";
 
 const router = Router();
 
-router.post('/prepper', (req, res) => {
+router.post('/prepper/api', async (req, res) => {
     // TODO: Add express-validator to make sure body has correct format
 
     const {
@@ -81,12 +81,11 @@ router.post('/prepper', (req, res) => {
 
     //Write new config to description.ext
     writeDataToFile(missionPath + "/description.ext", data);
-/*
-    zipFolder(missionPath);
+
+    await zipFolder(missionPath);
     removeFolder(missionPath);
-*/
     //Prompt downlaod at client
-   // res.download(missionPath + ".zip");
+    res.download(missionPath + ".zip");
 });
 
 export default router;

@@ -1,4 +1,3 @@
 .vscode
 node_modules/**
-missionFile/template/node_modules/**
 *.zip
