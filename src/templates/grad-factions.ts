@@ -8,10 +8,10 @@ import createAndCopyFile from "../functions/createAndCopyFile";
 import removeFolder from "../functions/removeFolder";
 
 export default function useGradFactions (missionName: string, descriptionChanges: string[][]) {
-    createAndCopyDir('missionFile/template/node_modules/grad-factions', missionName + '/node_modules/grad-factions');
+    createAndCopyDir('../../missionFile/template/node_modules/grad-factions', missionName + '/node_modules/grad-factions');
   
     descriptionChanges.push(
-        ["", "        #include <node_modules\grad-factions\loadouts.hpp>", "class Faction {"]
+        ["", "        #include <node_modules\\grad-factions\\loadouts.hpp>", "class Faction {"]
     );
   
     return descriptionChanges

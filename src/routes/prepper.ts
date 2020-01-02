@@ -83,11 +83,10 @@ router.post('/prepper', (req, res) => {
 
     //Write new config to description.ext
     writeDataToFile(missionPath + "/description.ext", data);
-
+/*
     zipFolder(missionPath);
-
     removeFolder(missionPath);
-
+*/
     //Prompt downlaod at client
     res.download(missionPath + ".zip");
 });
