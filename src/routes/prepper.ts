@@ -23,8 +23,6 @@ const router = Router();
 
 router.post('/prepper', (req, res) => {
     // TODO: Add express-validator to make sure body has correct format
-    const meh = req.body.meh;
-    res.json({ meh: 'lol' });
 
     const {
         missionName = "CO_Template",
@@ -88,7 +86,7 @@ router.post('/prepper', (req, res) => {
     removeFolder(missionPath);
 */
     //Prompt downlaod at client
-    res.download(missionPath + ".zip");
+   // res.download(missionPath + ".zip");
 });
 
 export default router;
